@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:line_management/upscreen_part.dart';
-import 'listviewcomponent.dart';
+import './upscreen_part.dart';
 import './tapbar.dart';
 void main() {
   runApp(MyApp());
