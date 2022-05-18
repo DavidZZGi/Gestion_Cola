@@ -24,7 +24,7 @@ class UpScreenPart extends StatelessWidget {
      ),
      width: double.infinity,
      height: double.infinity,
-      padding: EdgeInsets.all(50.0),
+      padding: EdgeInsets.all(20.0),
      
         child: 
            Row(
@@ -41,7 +41,7 @@ class UpScreenPart extends StatelessWidget {
 
             Flexible(
               child: Padding(
-                padding: const EdgeInsets.all(4.0),
+                padding: const EdgeInsets.fromLTRB(6, 45, 6, 6),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                  children: [
