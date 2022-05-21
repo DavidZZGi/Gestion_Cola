@@ -1,9 +1,18 @@
-class Client{
-String name;
-int age;
-String ci;
+import 'package:flutter/foundation.dart';
 
-Client({required this.name,required this.ci,required this.age});
+class Cliente{
+int idCliente;
+String nombre;
+String carnetIdentidad;
 
+Cliente({required this.idCliente,required this.carnetIdentidad,required this.nombre});
+
+factory Cliente.fromJson(Map<String,dynamic>json){
+  return Cliente(
+    carnetIdentidad:json['carnetIdentidad'],
+    nombre:json['nombre'],
+    idCliente:json['idCliente']
+    );
+}
 
 }
