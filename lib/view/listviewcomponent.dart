@@ -21,11 +21,11 @@ class _MylistViewState extends State<MylistView> {
       itemCount: cant,
       itemBuilder: (context,i){
            return SizedBox(
-             height: 70,
-             width: 70,
+             height: 100,
+             width: 150,
              child: Card(
          child:Column(children: [
-             Expanded(
+             Flexible(
                child: ListTile(
                 leading: icon,
                 title: Text(

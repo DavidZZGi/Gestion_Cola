@@ -1,43 +1,60 @@
+
 import 'package:flutter/material.dart';
 import './upscreen_part.dart';
 import './tapbar.dart';
+import 'lineform.dart';
+import 'loggin.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(
+  initialRoute: '/',
+    routes: {
+      '/':(context)=>const SignUpScreen(),
+      '/cubacola':(context)=>  MyApp(),
+      '/lineform':(context)=> Lineform()
+    },
+    debugShowCheckedModeBanner: false
+    ,
+  ));
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        
-        primarySwatch: Colors.blue,
-      ),
-      home:Scaffold(
-        
-        body: Column(children: [
-        Flexible(child:
-          UpScreenPart()
+    return 
+           Scaffold(
+                  appBar: AppBar(
+                    title: Center(
+                      child:Text('Sistema de Gestión de Colas'
+                      ,style: 
+                      TextStyle (
+                        fontWeight:FontWeight.bold ,color: Colors.white54)
+                      ,)
+                       ,) 
+                       ,
+                    automaticallyImplyLeading: false,
+                  ),
+                  body: Column(children: [
+                  Flexible(child:
+            UpScreenPart()
+            
+            ) ,
+                  
           
-          ) ,
-        
-
-          Flexible(
-            child: MyTapBar(), 
-            flex: 3,
-          ),
-     
-
+            Flexible(
+              child: MyTapBar(), 
+              flex: 3,
+            ),
+               
           
-      ],),)
+            
+                ],));
+          
       
       
       
        
-    );
+  
   }
 }
 
