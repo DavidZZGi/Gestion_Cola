@@ -58,90 +58,62 @@ class _MyTapBarState extends State<MyTapBar> {
                         'La habana',
                         style: TextStyle(fontSize: 30, color: Colors.white),
                       ),
-                      Text('Provincia',
-                      style: TextStyle(color: Colors.white,
-                      fontWeight: FontWeight.bold
-                      ),
-                      
-                      )
-                      ),
+                      Text(
+                        'Provincia',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
+                      )),
                   SizedBox(
                     height: 10,
                   ),
-                  
-                    containerGradiente(DropdownMun()),
+                  containerGradiente(DropdownMun(), 'Municipios'),
                   SizedBox(
                     height: 10,
                   ),
-                containerGradiente(TiendaDropdown()),
-             SizedBox(
+                  containerGradiente(TiendaDropdown(), 'Tiendas'),
+                  SizedBox(
                     height: 10,
                   ),
-              
-                 
-               Padding(
-                 padding: const EdgeInsets.all(8.0),
-                 child: ElevatedButton(
-                   onPressed: (){
-                       Navigator.of(context).pushNamed('/lineform');
-                   }, 
-                   
-                   child: Text('Crear Cola')
-                   ),
-               )
-
-
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/lineform');
+                        },
+                        child: Text('Crear Cola')),
+                  )
                 ],
               ),
             ),
             //Second Tab item
             Container(
-            
-              padding: EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Flexible(
-                    child: Text('Busca los productos',
-                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20)
-                    ,),
-                  ),
-                   App(),
-
-              ],)
-            
-
-
-
-
-            ),
-            //Third tab item
-            Container(
-              padding: EdgeInsets.all(20.0),
-              color: Colors.grey,
-              child: Expanded(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                padding: EdgeInsets.all(12.0),
+                child: ListView(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Nombre Clientes :',
-                        style: TextStyle(
-                            backgroundColor: Colors.grey, fontSize: 15.0,
-                            fontWeight: FontWeight.bold
-                            ),
+                    Flexible(
+                      child: Center(
+                        child: Text(
+                          'Busca los productos',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
                       ),
                     ),
-                    Flexible(
-                      child:
-                          Container(color: Colors.white38, child: MylistView()),
-                    ),
+                    App(),
                   ],
+                )
                 ),
-              ),
-            ),
+            //Third tab item
+            Container(
+            child: MylistView(),
+               ),
+               
+                         
+                         
+                          
+                   
           ],
         ),
       ),
@@ -167,46 +139,46 @@ class _MyTapBarState extends State<MyTapBar> {
           ),
         ));
   }
-Widget containerGradiente(Widget child){
-  return Container(
-                    padding: EdgeInsets.all(12.0),
-                      height: 70,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(12),
-                        gradient: LinearGradient(
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                            colors: [
-                              Colors.lightBlue,
-                              Color.fromRGBO(14, 30, 50, 1.7)
-                            ]),
-                      ),
-                      child: child,
-                      );
+
+  Widget containerGradiente(Widget child, String text) {
+    return Container(
+      padding: EdgeInsets.all(12.0),
+      height: 100,
+      decoration: BoxDecoration(
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.circular(12),
+        gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [Colors.lightBlue, Color.fromRGBO(14, 30, 50, 1.7)]),
+      ),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text(
+          '$text',
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+        ),
+        child
+      ]),
+    );
+  }
+
+  Widget containerNormal(Widget child) {
+    return Container(
+      padding: EdgeInsets.all(12.0),
+      height: 70,
+      decoration: BoxDecoration(
+        shape: BoxShape.rectangle,
+        gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [Colors.lightBlue, Color.fromRGBO(1, 35, 50, 1.2)]),
+      ),
+      child: child,
+    );
+  }
 }
-Widget containerNormal(Widget child){
-  return Container(
-                    padding: EdgeInsets.all(12.0),
-                      height: 70,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        gradient: LinearGradient(
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                            colors: [
-                              Colors.lightBlue,
-                              Color.fromRGBO(1, 35, 50, 1.2)
-                            ]),
-                      ),
-                      child: child,
-                      );
-}
 
-
-
-
-}
 //Search Bar
 class App extends StatefulWidget {
   @override
@@ -222,6 +194,7 @@ class _AppState extends State<App> {
       padding: const EdgeInsets.fromLTRB(8, 0, 0, 180),
       child: Container(
         child: AnimSearchBar(
+          helpText: 'Buscar',
           width: 400,
           textController: textController,
           onSuffixTap: () {

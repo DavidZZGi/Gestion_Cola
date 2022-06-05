@@ -7,7 +7,7 @@ class TiendaDropdown extends StatefulWidget {
 }
 
 class _TiendaDropdownState extends State<TiendaDropdown> {
-  String _dropdownvalue='Tiendas';
+  String _dropdownvalue='Playa- Mercado 3ra y 8';
   @override
   Widget build(BuildContext context) {
    return DropdownButton(
@@ -20,7 +20,7 @@ class _TiendaDropdownState extends State<TiendaDropdown> {
  iconSize: 42,
  iconEnabledColor: Colors.lightBlueAccent,
   items:[
-  DropdownMenuItem<String> (child:Text('Tiendas',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),) ,value: 'Tiendas',),
+  
   DropdownMenuItem<String> (child:Text('Playa- Mercado 3ra y 8',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),) ,value: 'Playa- Mercado 3ra y 8',),
   DropdownMenuItem<String>  (child:Text('Plaza- Tulipan y 39',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),) ,value: 'Plaza- Tulipan y 39',),
   DropdownMenuItem<String>  (child:Text('Plaza- Kiosco Carmelo Fanguito, Calle 19 esq. 32',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),) ,value: 'Plaza- Kiosco Carmelo Fanguito, Calle 19 esq. 32',),

@@ -32,11 +32,11 @@ class _LineformState extends State<Lineform> {
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
             child: Form(
 
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+              child: ListView(
+               
                 children: [
                   Center(
-                      child: Text('Registrat Clientes Manual',
+                      child: Text('Registrar Clientes Manual',
                       style: TextStyle(color: Colors.blue,fontWeight: FontWeight.w700,fontSize: 16),
                       
                       ),

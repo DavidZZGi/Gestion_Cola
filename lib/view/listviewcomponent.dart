@@ -8,54 +8,62 @@ class MylistView extends StatefulWidget {
 }
 
 class _MylistViewState extends State<MylistView> {
-  
   List<String>words=['juan','pedro','adrian','pepe','alain','jesus','marcelo'];
   @override
   Widget build(BuildContext context) {
-    
-    return CreateListView(10,Icon(Icons.shop));
- } 
-
-  static Widget CreateListView(cant,icon){
     return ListView.builder(
-      itemCount: cant,
+      padding: EdgeInsets.all(6),
+      itemCount: words.length,
       itemBuilder: (context,i){
-           return SizedBox(
-             height: 100,
-             width: 150,
-             child: Card(
-         child:Column(children: [
-             Flexible(
-               child: ListTile(
-                leading: icon,
-                title: Text(
-                   'Cliente'+'$i',
-                   style: TextStyle(
-                     fontWeight: FontWeight.bold,
-                     color: Colors.black45
-                     
-                   ),
-                 ),
-                 subtitle:Text(
-                      'Cliente incidente'
-             
-                 ),
-               ),
-             )
+        final item=words[i];
+           return 
+                 Dismissible(
+                    background: Container(
+                      child: Center(child: Text('Eliminar',style: TextStyle(color: Colors.black,fontSize: 20),)),
+                   color: Colors.red,
+          ),
+                   key: ValueKey<String>(item),
+          onDismissed: (DismissDirection direction) {
+            setState(() {
+              words.removeAt(i);
+            });
+           ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text('${words[i]} dismissed')));
+          },
           
-
-         ],) ,
-
-             ),
-           );
+                   child: Card(
+                     color: Colors.transparent,
+                     child: ListTile(
+                      leading:Icon(Icons.shop),
+                      title: Text(
+                         'Cliente'+'$i',
+                         style: TextStyle(
+                           fontWeight: FontWeight.bold,
+                           color: Colors.black45
+                           
+                         ),
+                       ),
+                       subtitle:Text(
+                            'Cliente incidente'
+                                  
+                       ),
+                     
+                     ),
+                   ),
+                 );    
+      } 
+                 );
+                    
            
-      }
-      
-      );
+            
+  }
+ 
 
-   }
+  
+      
+     
+
+}
 
  
 
-
-}

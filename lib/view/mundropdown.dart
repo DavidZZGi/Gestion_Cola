@@ -7,7 +7,7 @@ class DropdownMun extends StatefulWidget {
 }
 
 class _DropdownMunState extends State<DropdownMun> {
-  String _dropdownvalue='Municipios';
+  String _dropdownvalue='Plaza';
   @override
   Widget build(BuildContext context) {
      return DropdownButton(
@@ -20,7 +20,6 @@ class _DropdownMunState extends State<DropdownMun> {
  iconSize: 42,
  iconEnabledColor: Colors.lightBlueAccent,
   items:[
-   DropdownMenuItem<String> (child:Text('Municipios',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),) ,value: 'Municipios',), 
   DropdownMenuItem<String> (child:Text('Plaza',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),) ,value: 'Plaza',),
   DropdownMenuItem<String>  (child:Text('San miguel',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),) ,value: 'San miguel',),
   DropdownMenuItem<String>  (child:Text('10 de Octubre',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),) ,value: '10 de Octubre',),
