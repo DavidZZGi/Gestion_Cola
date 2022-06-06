@@ -1,11 +1,10 @@
-
-
 import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+
 class Lineform extends StatefulWidget {
   Lineform({Key? key}) : super(key: key);
 
@@ -14,126 +13,109 @@ class Lineform extends StatefulWidget {
 }
 
 class _LineformState extends State<Lineform> {
- final _nameTextController = TextEditingController();
+  final _nameTextController = TextEditingController();
   final _apellidotextController = TextEditingController();
   final _ciTextController = TextEditingController();
-    final _direccionTextController = TextEditingController();
-
+  final _direccionTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text('Registrar Clientes'),
-      
       ),
-      body:
-           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-            child: Form(
-
-              child: ListView(
-               
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+        child: Form(
+          child: ListView(
+            children: [
+              Center(
+                child: Text(
+                  'Registrar Clientes Manual',
+                  style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16),
+                ),
+              ),
+              Row(
                 children: [
-                  Center(
-                      child: Text('Registrar Clientes Manual',
-                      style: TextStyle(color: Colors.blue,fontWeight: FontWeight.w700,fontSize: 16),
-                      
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        controller: _nameTextController,
+                        decoration: const InputDecoration(hintText: 'Nombre'),
                       ),
-                  ),
-                      Row(
-                        children: [
-                          
-                          Flexible(
-                            
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                controller: _nameTextController,
-                                decoration: const InputDecoration(hintText: 'Nombre'),
-                              ),
-                            ),
-                          ),
-                        
-                          Expanded(
-                            child: TextFormField(
-                              controller: _apellidotextController,
-                              decoration: const InputDecoration(hintText: 'Apellidos'),
-                            ),
-                          ),
-                          
-                        ],
-                      ),
-                       Row(
-                          children: [
-                          Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                controller: _ciTextController,
-                                decoration: const InputDecoration(hintText: 'Carnet de Identidad'),
-                              ),
-                            ),
-                          ),
-                        
-                           Expanded(
-                            child: TextFormField(
-                              controller: _direccionTextController,
-                              decoration: const InputDecoration(hintText: 'Dirección'),
-                            ),
-                          ),
-                          
-
-
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ElevatedButton(onPressed: (){}, child: Text('Enviar')),
-                        ),
-                
-
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Divider(
-                       thickness: 4,
-                       height: 2,
                     ),
                   ),
-              
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                  child: Center(
-                    child: Text('Registrar Clientes Escaneando Código QR',
-                        style: TextStyle(color: Colors.blue,fontWeight: FontWeight.w700,fontSize: 16)), 
+                  Expanded(
+                    child: TextFormField(
+                      controller: _apellidotextController,
+                      decoration: const InputDecoration(hintText: 'Apellidos'),
+                    ),
                   ),
-                ),
-                
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    onPressed: (){
-                    Navigator.of(context).push(MaterialPageRoute(
-                   builder: (context) => const QRViewExample(),
-
-
-                    ));
-
-                    },
-                     child: Text('Escanear'),
-                    
-                     ),
-                ),
-              ],
-               
-
+                ],
               ),
-            ),
+              Row(
+                children: [
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        controller: _ciTextController,
+                        decoration: const InputDecoration(
+                            hintText: 'Carnet de Identidad'),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: TextFormField(
+                      controller: _direccionTextController,
+                      decoration: const InputDecoration(hintText: 'Dirección'),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(onPressed: () {}, child: Text('Enviar')),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Divider(
+                  thickness: 4,
+                  height: 2,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: Center(
+                  child: Text('Registrar Clientes Escaneando Código QR',
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16)),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const QRViewExample(),
+                    ));
+                  },
+                  child: Text('Escanear'),
+                ),
+              ),
+            ],
           ),
+        ),
+      ),
     );
-      
   }
-  }
+}
 //clase para acceder a la camara y poder escanear
 
 class QRViewExample extends StatefulWidget {
@@ -176,7 +158,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                     Text(
                         'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
                   else
-                    const Text('Scan a code'),
+                    const Text('Escanea Código'),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -226,7 +208,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                           onPressed: () async {
                             await controller?.pauseCamera();
                           },
-                          child: const Text('pause',
+                          child: const Text('Pausa la cámara',
                               style: TextStyle(fontSize: 20)),
                         ),
                       ),
@@ -236,7 +218,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                           onPressed: () async {
                             await controller?.resumeCamera();
                           },
-                          child: const Text('resume',
+                          child: const Text('Continuar',
                               style: TextStyle(fontSize: 20)),
                         ),
                       )
@@ -279,6 +261,7 @@ class _QRViewExampleState extends State<QRViewExample> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
+        
       });
     });
   }

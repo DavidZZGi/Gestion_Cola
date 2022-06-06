@@ -1,5 +1,8 @@
 
+
+
 import 'package:flutter/material.dart';
+import 'package:line_management/view/loading.dart';
 import './upscreen_part.dart';
 import './tapbar.dart';
 import 'lineform.dart';
@@ -7,8 +10,9 @@ import 'loggin.dart';
 
 void main() {
   runApp(MaterialApp(
-  initialRoute: '/',
+  initialRoute: '/loading',
     routes: {
+      '/loading':(context)=>LoadingPage(),
       '/':(context)=>const SignUpScreen(),
       '/cubacola':(context)=>  MyApp(),
       '/lineform':(context)=> Lineform()

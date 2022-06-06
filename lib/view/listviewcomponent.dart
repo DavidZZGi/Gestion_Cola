@@ -28,7 +28,7 @@ class _MylistViewState extends State<MylistView> {
               words.removeAt(i);
             });
            ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text('${words[i]} dismissed')));
+                    .showSnackBar(SnackBar(content: Text('${words[i]} fue removido de la cola')));
           },
           
                    child: Card(

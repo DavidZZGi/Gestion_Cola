@@ -30,7 +30,7 @@ class _MyTapBarState extends State<MyTapBar> {
             indicatorColor: Colors.grey[850],
             tabs: <Widget>[
               Tab(
-                text: 'Colas',
+                text: 'Crear Cola',
                 icon: Icon(Icons.add_box_outlined),
               ),
               Tab(
@@ -68,11 +68,11 @@ class _MyTapBarState extends State<MyTapBar> {
                   SizedBox(
                     height: 10,
                   ),
-                  containerGradiente(DropdownMun(), 'Municipios'),
+                  containerGradiente(DropdownMun(), 'Seleccionar municipio'),
                   SizedBox(
                     height: 10,
                   ),
-                  containerGradiente(TiendaDropdown(), 'Tiendas'),
+                  containerGradiente(TiendaDropdown(), 'Seleccionar tienda'),
                   SizedBox(
                     height: 10,
                   ),
@@ -103,17 +103,11 @@ class _MyTapBarState extends State<MyTapBar> {
                     ),
                     App(),
                   ],
-                )
-                ),
+                )),
             //Third tab item
             Container(
-            child: MylistView(),
-               ),
-               
-                         
-                         
-                          
-                   
+              child: MylistView(),
+            ),
           ],
         ),
       ),

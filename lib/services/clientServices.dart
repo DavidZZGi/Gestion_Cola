@@ -10,7 +10,12 @@ http.Response response = await http.get(Uri.parse('$url'));
 if(response.statusCode==200){
  final resul= jsonDecode(response.body);
      for (var item in resul) {
-       Cliente aux=Cliente(idCliente: item['idCliente'], nombre: item['nombre'], carnetIdentidad: item['carnetIdentidad'] );
+       Cliente aux=Cliente(idCliente: item['idCliente'],
+        nombre: item['nombre'],
+         carnetIdentidad: item['carnetIdentidad'],
+         apellidos: item['apellidos'],
+         direccion: item['direccion']
+          );
          result.add(aux);
      }
   return result ;
@@ -29,7 +34,9 @@ Future<http.Response> createUser(Cliente user) {
     body: jsonEncode(<String, dynamic>{
       'idCliente': user.idCliente,
       'nombre':user.nombre,
-      'carnetIdentidad':user.carnetIdentidad
+      'carnetIdentidad':user.carnetIdentidad,
+      'apellidos':user.apellidos,
+      'direccion':user.direccion
     }),
   );
 }

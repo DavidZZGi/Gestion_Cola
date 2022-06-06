@@ -20,7 +20,13 @@ return listacliente;
 
 Future<Cliente> findMypime({int ? id})async{
  Cliente result=await _clienteService.fetchCliente(id);
-  aux=Cliente(idCliente: result.idCliente, carnetIdentidad: result.carnetIdentidad, nombre: result.nombre);
+  aux=Cliente(
+    idCliente: result.idCliente,
+     carnetIdentidad: result.carnetIdentidad,
+      nombre: result.nombre,
+      apellidos: result.apellidos,
+      direccion: result.direccion,
+      );
   print(aux);
   notifyListeners();
   return aux;

@@ -7,12 +7,20 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue.shade200,
-      body: const Center(
-        child: SizedBox(
-          width: 400,
-          child: Card(
-            child: SignUpForm(),
+      body: Container(
+        decoration:BoxDecoration(
+               gradient:  LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [Colors.lightBlue, Color.fromRGBO(14, 30, 50, 1.7)]),
+    
+            ), 
+        child: const Center(
+          child: SizedBox(
+            width: 400,
+            child: Card(
+              child: SignUpForm(),
+            ),
           ),
         ),
       ),
@@ -173,7 +181,7 @@ class _AnimatedProgressIndicatorState extends State<AnimatedProgressIndicator>
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) => LinearProgressIndicator(
-        minHeight: 6,
+        minHeight: 12,
         value: _curveAnimation.value,
         valueColor: _colorAnimation,
         backgroundColor: _colorAnimation.value?.withOpacity(0.4),
