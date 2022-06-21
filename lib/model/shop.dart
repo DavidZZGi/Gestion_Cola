@@ -1,10 +1,12 @@
 
-import 'Product.dart';
 class Shop{
 String name;
-late List< Product>products;
+int id;
+String activa;
+int idMunicipio;
 
-Shop({required this.name,required this.products});
+
+Shop({required this.name,required this.id,required this.activa,required this.idMunicipio});
 
 
 }

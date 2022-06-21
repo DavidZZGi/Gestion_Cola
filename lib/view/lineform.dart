@@ -3,6 +3,9 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:line_management/model/client.dart';
+import 'package:line_management/provider/clientProvider.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class Lineform extends StatefulWidget {
@@ -16,10 +19,11 @@ class _LineformState extends State<Lineform> {
   final _nameTextController = TextEditingController();
   final _apellidotextController = TextEditingController();
   final _ciTextController = TextEditingController();
-  final _direccionTextController = TextEditingController();
+ 
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Registrar Clientes'),
@@ -69,17 +73,19 @@ class _LineformState extends State<Lineform> {
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: TextFormField(
-                      controller: _direccionTextController,
-                      decoration: const InputDecoration(hintText: 'Dirección'),
-                    ),
-                  ),
+                 
                 ],
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(onPressed: () {}, child: Text('Enviar')),
+                child: ElevatedButton(onPressed: () {
+                  if(_nameTextController.value.text.isNotEmpty && _apellidotextController.value.text.isNotEmpty && _ciTextController.value.text.isNotEmpty){
+                    Provider.of<ClienteProvider>(context,listen: false).insertClient(Cliente(idCliente: 1, carnetIdentidad: _ciTextController.value.toString(), nombre: _nameTextController.value.toString(), apellidos: _apellidotextController.value.toString()));
+                  }
+                                  
+
+
+                }, child: Text('Enviar')),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),

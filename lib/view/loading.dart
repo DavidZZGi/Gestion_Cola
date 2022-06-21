@@ -11,11 +11,11 @@ class _LoadingPageState extends State<LoadingPage> {
  @override
   void initState() {
   super.initState();
- apploading();
+ appLoading();
     
     
   }
-apploading()async{
+appLoading()async{
 await Future.delayed(Duration(milliseconds: 4000),(){});
 Navigator.pushReplacementNamed(context, '/');
 }

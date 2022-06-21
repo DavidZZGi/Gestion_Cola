@@ -1,19 +1,17 @@
 class Product {
 String productName;
-int cant;
-Product({required this.productName,required this.cant});
+int id;
+Product({required this.productName,required this.id});
 
 //getters
 String getproductName()=>this.productName;
-int getcant()=>this.cant;
+int getcant()=>this.id;
 
 //setters
 void setproductName(String value){
   this.productName=value;
 }
-void setcant(int value){
-  this.cant=value;
-}
+
 
 
 

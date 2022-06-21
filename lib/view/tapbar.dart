@@ -1,6 +1,8 @@
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:line_management/view/tiendadropdown.dart';
+import 'package:line_management/provider/munprovider.dart';
+import 'package:line_management/provider/shopProvider.dart';
+import 'package:provider/provider.dart';
 import 'listviewcomponent.dart';
 import 'mundropdown.dart';
 
@@ -12,6 +14,9 @@ class MyTapBar extends StatefulWidget {
 }
 
 class _MyTapBarState extends State<MyTapBar> {
+  bool munSelected = false;
+  bool tiendaSelected = false;
+  late Future<List> shops;
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -30,7 +35,7 @@ class _MyTapBarState extends State<MyTapBar> {
             indicatorColor: Colors.grey[850],
             tabs: <Widget>[
               Tab(
-                text: 'Crear Cola',
+                text: 'Crear Nueva Cola',
                 icon: Icon(Icons.add_box_outlined),
               ),
               Tab(
@@ -38,7 +43,7 @@ class _MyTapBarState extends State<MyTapBar> {
                 icon: Icon(Icons.fastfood),
               ),
               Tab(
-                text: 'Clientes',
+                text: 'Colas',
                 icon: Icon(Icons.person),
               ),
             ],
@@ -72,15 +77,26 @@ class _MyTapBarState extends State<MyTapBar> {
                   SizedBox(
                     height: 10,
                   ),
-                  containerGradiente(TiendaDropdown(), 'Seleccionar tienda'),
+                  shopsListView(),
+                  // containerGradiente(TiendaDropdown(), 'Seleccionar tienda'),
                   SizedBox(
                     height: 10,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
+                        style: ButtonStyle(),
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/lineform');
+                          munSelected = Provider.of<MunicipioProvider>(context,
+                                  listen: false)
+                              .selectedValue;
+                          if (munSelected)
+                            Navigator.of(context).pushNamed('/lineform');
+                          else {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content:
+                                    Text('Tiene que selecionar un municipio')));
+                          }
                         },
                         child: Text('Crear Cola')),
                   )
@@ -109,6 +125,70 @@ class _MyTapBarState extends State<MyTapBar> {
               child: MylistView(),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget shopsListView() {
+    return FutureBuilder<List>(
+        future: shops,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, i) {
+                  return getCard(snapshot.data![i]);
+                });
+          } else if (snapshot.hasError) {
+            return Text('${snapshot.error}');
+          }
+
+          return CircularProgressIndicator();
+        });
+  }
+
+  Widget getCard(index) {
+    var id = index['id'];
+    var nombre = index['nombre'];
+    var idMun = index['id_municipio'];
+    var activa = index['activa'];
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(6.0),
+        child: ListTile(
+          title: Row(
+            children: [
+              Container(
+                width: 60.0,
+                height: 60.0,
+                decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.circular(60 / 2)),
+              ),
+              SizedBox(width: 20.0),
+              Column(
+                children: [
+                  Text(
+                    id.toString(),
+                    style: TextStyle(fontSize: 30),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(nombre.toString()),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(idMun.toString()),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(activa.toString()),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -170,6 +250,13 @@ class _MyTapBarState extends State<MyTapBar> {
       ),
       child: child,
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    shops = Provider.of<ShopProvider>(context, listen: false).allShopsFromPlY();
+    print(shops);
   }
 }
 

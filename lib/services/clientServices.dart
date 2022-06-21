@@ -2,6 +2,7 @@
 import 'package:line_management/model/client.dart';
 import 'package:http/http.dart'as http;
 import'dart:convert';
+
 class ClienteService{
   static const url='http://localhost:3000/users';
   Future <List<Cliente>>fetchAllClients()async{
@@ -14,7 +15,8 @@ if(response.statusCode==200){
         nombre: item['nombre'],
          carnetIdentidad: item['carnetIdentidad'],
          apellidos: item['apellidos'],
-         direccion: item['direccion']
+       
+   
           );
          result.add(aux);
      }
@@ -36,7 +38,7 @@ Future<http.Response> createUser(Cliente user) {
       'nombre':user.nombre,
       'carnetIdentidad':user.carnetIdentidad,
       'apellidos':user.apellidos,
-      'direccion':user.direccion
+    
     }),
   );
 }
