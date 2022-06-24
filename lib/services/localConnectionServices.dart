@@ -1,5 +1,7 @@
 
+import 'package:line_management/model/Product.dart';
 import 'package:line_management/model/client.dart';
+import 'package:line_management/model/line.dart';
 import 'package:path/path.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sqflite/sqflite.dart';
@@ -12,10 +14,26 @@ final database = openDatabase(
   
   join(await getDatabasesPath(), 'ColaSqlite.db'),
   version: 1,
+  onCreate: (db, version) {
+    return crearBD(db);
+           
+   
+  },
  
 );
 return database;
 }
+
+static void crearBD(Database db){
+  db.execute('CREATE TABLE "cliente" ("ci"	TEXT,"nombre"	TEXT,"apellidos"	TEXT,"id_cliente"	INTEGER,PRIMARY KEY("id_cliente"))');
+  db.execute('CREATE TABLE "cola" ("id"	INTEGER,"id_producto"	INTEGER,"id_persona"	INTEGER,"fecha"	TEXT,"id_municipio"	INTEGER,"id_tienda"	INTEGER,PRIMARY KEY("id"))');
+  db.execute('CREATE TABLE "municipio" ("id"	INTEGER,"nombre"	TEXT,"id_provincia"	INTEGER,"poblacion"	INTEGER,"nombre_corto"	TEXT,PRIMARY KEY("id"));');
+  db.execute('CREATE TABLE "tienda" ("id"	INTEGER,"nombre"	TEXT,"id_municipio"	INTEGER,"activa"	TEXT,PRIMARY KEY("id"));');
+  db.execute('CREATE TABLE "producto" ("id"	INTEGER,"nombre"	TEXT,"id_tipo"	INTEGER,PRIMARY KEY("id"));');
+
+ }
+
+
 
   Future<int> insertClient(Cliente cliente)async{
    
@@ -27,6 +45,75 @@ return database;
 }
 
 
+
+
+Future<void>insertLine(Line line)async{
+  DateTime fecha=DateTime.now();
+List<int>idClientes=line.clients.map((e) => e.idCliente).toList();
+List<int>idProductos=line.products.map((e) => e.id).toList();
+
+Database database =await getConennection();
+for (var i = 0; i < idClientes.length; i++) {
+  for (var j = 0; j < idProductos.length; j++) {
+     await database.rawInsert('INSERT INTO cola(id_producto,id_persona,fecha,id_municipio,id_tienda) VALUES(${idProductos[j]},${idClientes[i]},${fecha.toString()},${line.idMun},${line.idTienda}) ');
+  }
+}
+ 
+}
+
+Future<void>deleteLine(int id)async{
+  Database database =await getConennection();
+  database.delete(
+      'cola',
+      where: 'id=?',
+      whereArgs: [id],
+  );
+}
+Future<List<Line>> lines() async {
+  // Get a reference to the database.
+  final db = await getConennection();
+
+  // Query the table for all The Dogs.
+  final List<Map<String, dynamic>> maps = await db.query('cola',distinct: true);
+
+  // Convert the List<Map<String, dynamic> into a List<Dog>.
+  return List.generate(maps.length, (i) {
+   List<Cliente>clientes= getClientesDadoId(maps[i]['id_cliente']) as List<Cliente>;
+   List<Product>productos=getProductoDadoId(maps[i]['id_producto']) as List<Product>;
+    return Line(
+   clients: clientes,
+   products: productos,
+   idLine: maps[i]['id'],
+   idMun: maps[i]['id_municipio'],
+   idTienda: maps[i]['id_tienda'],
+    );
+  });
+}
+
+Future<List<Cliente>>getClientesDadoId(int id)async{
+  final db = await getConennection();
+final List<Map<String, dynamic>>clientes  =await db.query('cliente',where: 'id_cliente=?',whereArgs: [id],distinct: true);
+return List.generate(clientes.length, (i) {
+   
+    return Cliente(
+   idCliente: clientes[i]['id_cliente'],
+   apellidos: clientes[i]['apellidos'],
+   carnetIdentidad: clientes[i]['ci'],
+   nombre: clientes[i]['nombre']
+    );
+  });
+}
+
+Future<List<Product>>getProductoDadoId(int id)async{
+  final db = await getConennection();
+final List<Map<String, dynamic>>productos  =await db.query('producto',where: 'id=?',whereArgs: [id],distinct: true);
+return List.generate(productos.length, (i) {
+   
+    return Product(productName: productos[i]['nombre'], id: productos[i]['id'],idTipo: productos[i]['id_tipo']);
+  
+    
+  });
+}
 
 
 
@@ -127,4 +214,4 @@ return database;
   print(await dogs());
 }
 */
-}
+ }

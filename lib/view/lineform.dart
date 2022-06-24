@@ -81,7 +81,16 @@ class _LineformState extends State<Lineform> {
                 child: ElevatedButton(onPressed: () {
                   if(_nameTextController.value.text.isNotEmpty && _apellidotextController.value.text.isNotEmpty && _ciTextController.value.text.isNotEmpty){
                     Provider.of<ClienteProvider>(context,listen: false).insertClient(Cliente(idCliente: 1, carnetIdentidad: _ciTextController.value.toString(), nombre: _nameTextController.value.toString(), apellidos: _apellidotextController.value.toString()));
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content:
+                                    Text('Cliente insertado en la cola')));
                   }
+                  else{
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content:
+                                    Text('No puede dejar campos vacios')));
+                  }
+
                                   
 
 

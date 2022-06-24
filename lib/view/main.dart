@@ -1,8 +1,11 @@
 
 
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:line_management/provider/clientProvider.dart';
 import 'package:line_management/provider/munprovider.dart';
+import 'package:line_management/provider/productProvider.dart';
 import 'package:line_management/provider/shopProvider.dart';
 import 'package:line_management/view/loading.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +19,8 @@ void main() {
     providers: [
       ChangeNotifierProvider(create:(context)=>ClienteProvider()),
       ChangeNotifierProvider(create:(context)=>MunicipioProvider()),
-      ChangeNotifierProvider(create: (context)=>ShopProvider())
+      ChangeNotifierProvider(create: (context)=>ShopProvider()),
+      ChangeNotifierProvider(create: (context)=>ProductProvider())
     ],
     child: MaterialApp(
     initialRoute: '/loading',
