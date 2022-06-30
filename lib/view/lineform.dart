@@ -158,6 +158,8 @@ class _QRViewExampleState extends State<QRViewExample> {
 
   @override
   Widget build(BuildContext context) {
+    if(result!=null)
+    Provider.of<ClienteProvider>(context).stringToCliente(result!.code);
     return Scaffold(
       body: Column(
         children: <Widget>[

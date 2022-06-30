@@ -32,4 +32,9 @@ class Cliente {
   String toString() {
     return 'Cliente{idCliente: $idCliente, nombre: $nombre, apellidos: $apellidos, carnetIdentidad: $carnetIdentidad}';
   }
+
+
+
+ 
+
 }

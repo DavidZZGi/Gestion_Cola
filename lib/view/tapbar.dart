@@ -1,4 +1,3 @@
-
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:line_management/model/Product.dart';
@@ -17,6 +16,8 @@ class MyTapBar extends StatefulWidget {
 }
 
 class _MyTapBarState extends State<MyTapBar> {
+
+
   bool munSelected = false;
   bool tiendaSelected = false;
   late Future<List> shops;
@@ -108,8 +109,8 @@ class _MyTapBarState extends State<MyTapBar> {
             ),
             //Second Tab item
             Container(
-              child:  Flexible(child: Home()),
-              ),
+              child: Flexible(child: Home()),
+            ),
             //Third tab item
             Container(
               child: MylistView(),
@@ -245,6 +246,7 @@ class _MyTapBarState extends State<MyTapBar> {
   @override
   void initState() {
     super.initState();
+    
     shops = Provider.of<ShopProvider>(context, listen: false).allShopsFromPlY();
     print(shops);
   }
@@ -296,17 +298,18 @@ class _HomeState extends State<Home> {
 
   bool _firstSearch = true;
   String _query = "";
- late Future <List<Product>>products;
-  List<String> _nebulae=[];
-  List<String> _filterList=[];
+  late Future<List<Product>> products;
+  List<String> _nebulae = [];
+  List<String> _filterList = [];
 
   @override
   void initState() {
     super.initState();
- products=Provider.of<ProductProvider>(context,listen:false).getAllProducts();
- print(products);
+    products =
+        Provider.of<ProductProvider>(context, listen: false).getAllProducts();
+    print(products);
     _nebulae = [];
-   
+
     _nebulae = [
       "Orion",
       "Boomerang",
@@ -323,7 +326,7 @@ class _HomeState extends State<Home> {
       "Elephant's Trunk",
       "Butterfly"
     ];
-    
+
     _nebulae.sort();
   }
 
@@ -349,17 +352,17 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
-        child: Column(
-          children: <Widget>[
-           _createSearchView(),
-            _firstSearch ? _createListView() : _performSearch()
-          ],
-        ),
-      );
-  
+      margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+      child: Column(
+        children: <Widget>[
+          _createSearchView(),
+          _firstSearch ? _createListView() : _performSearch()
+        ],
+      ),
+    );
   }
- //Create a SearchView
+
+  //Create a SearchView
   Widget _createSearchView() {
     return Container(
       decoration: BoxDecoration(border: Border.all(width: 1.0)),
@@ -367,71 +370,66 @@ class _HomeState extends State<Home> {
         controller: _searchview,
         decoration: InputDecoration(
           hintText: "Agrege los productos de la cola",
-          hintStyle:  TextStyle(color: Colors.grey[300]),
+          hintStyle: TextStyle(color: Colors.grey[300]),
         ),
         textAlign: TextAlign.center,
       ),
     );
   }
+
   //Create a ListView widget
   Widget _createListView() {
-    return  FutureBuilder<List<Product>>(
-      future: products,
-      builder: (contex,snapshot){
-          if(snapshot.hasData){
-            return  Flexible(
-        child:  ListView.builder(
-            itemCount: snapshot.data!.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Card(
-                color: Colors.lightBlue[100],
-                elevation: 5.0,
-                child:  Container(
-                  margin: EdgeInsets.all(15.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                     // Text("${_nebulae[index]}",
-                     Text('${snapshot.data![index].productName}',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-    
+    return FutureBuilder<List<Product>>(
+        future: products,
+        builder: (contex, snapshot) {
+          if (snapshot.hasData) {
+            return Flexible(
+              child: ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Card(
+                      color: Colors.lightBlue[100],
+                      elevation: 5.0,
+                      child: Container(
+                        margin: EdgeInsets.all(15.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // Text("${_nebulae[index]}",
+                            Text(
+                              '${snapshot.data![index].productName}',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            ElevatedButton(
+                                onPressed: () {},
+                                child: Text('Agregar',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                    )))
+                          ],
+                        ),
                       ),
-                      
-                      
-                      ),
-                      ElevatedButton(
-                        onPressed: (){},
-                         child: Text('Agregar',
-                         style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-    
-                      )
-                         
-                         
-                         ))
-                    ],
-                  ),
-                ),
-              );
-            }),
-      );
-           }
-    else if(snapshot.hasError){
-         return Text("${snapshot.error}");
-    }    
-    return CircularProgressIndicator(); 
-     
-    
-   } );
+                    );
+                  }),
+            );
+          } else if (snapshot.hasError) {
+            return Text("${snapshot.error}");
+          }
+          return CircularProgressIndicator();
+        });
   }
-  
+
   //Perform actual search
   Widget _performSearch() {
-    List<String>nombreProductos=Provider.of<ProductProvider>(context).products.map((e) => e.productName).toList();
+    List<String> nombreProductos = Provider.of<ProductProvider>(context)
+        .products
+        .map((e) => e.productName)
+        .toList();
     _filterList = [];
     for (int i = 0; i < nombreProductos.length; i++) {
       var item = nombreProductos[i];
@@ -442,10 +440,11 @@ class _HomeState extends State<Home> {
     }
     return _createFilteredListView();
   }
+
   //Create the Filtered ListView
   Widget _createFilteredListView() {
-    return  Flexible(
-      child:  ListView.builder(
+    return Flexible(
+      child: ListView.builder(
           itemCount: _filterList.length,
           itemBuilder: (BuildContext context, int index) {
             return Card(
@@ -457,27 +456,18 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text("${_filterList[index]}",
-                    style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-    
-                          )
-                    
-                    
-                    ),
-                     ElevatedButton(
-                        onPressed: (){},
-                         child: Text('Agregar',
-                         style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-    
-                      )
-                         
-                         
-                         ))
-
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        )),
+                    ElevatedButton(
+                        onPressed: () {},
+                        child: Text('Agregar',
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            )))
                   ],
                 ),
               ),

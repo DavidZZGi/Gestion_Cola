@@ -2,6 +2,7 @@
 import 'package:line_management/model/Product.dart';
 import 'package:line_management/model/client.dart';
 import 'package:line_management/model/line.dart';
+import 'package:line_management/model/shop.dart';
 import 'package:path/path.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sqflite/sqflite.dart';
@@ -69,7 +70,7 @@ Future<void>deleteLine(int id)async{
       whereArgs: [id],
   );
 }
-Future<List<Line>> lines() async {
+Future<List<Line>> getLines() async {
   // Get a reference to the database.
   final db = await getConennection();
 
@@ -86,6 +87,7 @@ Future<List<Line>> lines() async {
    idLine: maps[i]['id'],
    idMun: maps[i]['id_municipio'],
    idTienda: maps[i]['id_tienda'],
+   date: maps[i]['fecha'],
     );
   });
 }
@@ -112,6 +114,20 @@ return List.generate(productos.length, (i) {
     return Product(productName: productos[i]['nombre'], id: productos[i]['id'],idTipo: productos[i]['id_tipo']);
   
     
+  });
+}
+
+Future<List<Shop>>getTiendaDadoMun(int idMun)async{
+ final db = await getConennection();
+final List<Map<String, dynamic>>shops  =await db.query('tienda',where: 'id_municipio=?',whereArgs: [idMun],distinct: true);
+return List.generate(shops.length, (i) {
+   
+    return Shop(
+      name: shops[i]['nombre'], 
+      id: shops[i]['id'], 
+      activa: shops[i]['activa'], 
+      idMunicipio:shops[i]['id_municipio']);
+   
   });
 }
 

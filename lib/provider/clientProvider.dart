@@ -73,5 +73,23 @@ notifyListeners();
 
 }
 
+Cliente stringToCliente(String ? clienteS){
+ String client=clienteS!.trim();
+int posiscionNombre=client.indexOf('N:');
+int posicionAppelido=client.indexOf('A:');
+int posicionCI=client.indexOf('CI:');
+int posicionFV=client.indexOf('FV:');
+
+String nombreClient=client.substring(posiscionNombre+2,posicionAppelido);
+String apellidosClient=client.substring(posicionAppelido+2,posicionCI);
+String carnetIdnt=client.substring(posicionCI+3,posicionFV);
+
+
+Cliente cliente =Cliente(idCliente: 1, carnetIdentidad: carnetIdnt, nombre: nombreClient, apellidos: apellidosClient);
+listacliente.add(cliente);
+notifyListeners();
+return cliente;
+}
+
 ClienteProvider();
 }

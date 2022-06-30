@@ -1,8 +1,3 @@
-import 'package:sqflite/sqflite.dart';
-class MunicipioService{
-
-
-
-
+class MunicipioService {
   
 }
